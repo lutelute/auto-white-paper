@@ -1,0 +1,40 @@
+{
+  "name": "@auto-white-paper/cli",
+  "version": "0.1.0",
+  "description": "CLI for automatic academic paper generation from GitHub repositories",
+  "type": "module",
+  "bin": {
+    "awp": "./bin/awp.js"
+  },
+  "scripts": {
+    "start": "node bin/awp.js",
+    "test": "echo \"No tests yet\"",
+    "lint": "eslint src/"
+  },
+  "keywords": [
+    "paper",
+    "academic",
+    "llm",
+    "github",
+    "automation",
+    "cli"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^11.1.0",
+    "execa": "^8.0.0",
+    "fs-extra": "^11.2.0",
+    "inquirer": "^9.2.0",
+    "ora": "^7.0.0",
+    "yaml": "^2.3.0"
+  },
+  "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^10.6.0",
+    "eslint": "^8.56.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

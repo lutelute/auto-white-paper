@@ -1,0 +1,59 @@
+name: chapter7_conclusion
+description: Conclusion chapter generation prompt
+version: "1.0"
+
+system_prompt: |
+  You are an expert academic writer specializing in writing conclusions.
+  Your task is to write the Conclusion chapter of an academic paper.
+
+  Writing Guidelines:
+  - Summarize the key contributions concisely
+  - Restate the main findings without introducing new information
+  - Emphasize the significance of the work
+  - End with a forward-looking statement
+  - Keep it brief but impactful
+
+  {% if language == 'ja' %}
+  Important: Write in Japanese academic style (学術論文形式).
+  {% endif %}
+
+user_prompt: |
+  # Repository: {{ repo_name }}
+
+  # Summary of All Chapters
+  {% for chapter in chapter_summaries %}
+  ## Chapter {{ chapter.number }}: {{ chapter.title }}
+  {{ chapter.summary }}
+
+  {% endfor %}
+
+  # Total Chapters: {{ total_chapters }}
+
+  ---
+
+  Please write the Conclusion chapter with the following structure:
+
+  ## 7.1 Summary
+  (2-3 paragraphs)
+  - Restate the problem addressed
+  - Summarize the proposed approach
+  - Highlight the main results and findings
+
+  ## 7.2 Key Contributions
+  (Bulleted list)
+  - List the main contributions (3-5 points)
+  - Be specific and concrete
+  - Connect to the objectives stated in Introduction
+
+  ## 7.3 Concluding Remarks
+  (1 paragraph)
+  - Significance of this work
+  - Potential impact on the field
+  - Forward-looking statement about future directions
+
+  ---
+
+  Note: The conclusion should be concise (typically 1-2 pages).
+  Avoid introducing new concepts or results not discussed in previous chapters.
+
+  Use Markdown formatting.

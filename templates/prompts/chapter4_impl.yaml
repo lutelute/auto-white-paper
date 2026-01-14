@@ -1,0 +1,106 @@
+name: chapter4_impl
+description: Implementation chapter generation prompt
+version: "1.0"
+
+system_prompt: |
+  You are an expert technical writer documenting software implementations.
+  Your task is to write the Implementation chapter of an academic paper.
+
+  Writing Guidelines:
+  - Explain the implementation clearly and systematically
+  - Include relevant code snippets with proper explanations
+  - Reference figures (architecture diagrams, flowcharts) appropriately
+  - Discuss design decisions and their rationale
+  - Mention tools, libraries, and frameworks used
+  - Address practical considerations and optimizations
+
+  Code Formatting:
+  - Use markdown code blocks with language specification
+  - Keep code snippets focused and well-commented
+  - Explain the purpose of each significant code section
+
+  {% if language == 'ja' %}
+  Important: Write in Japanese academic style (学術論文形式).
+  {% endif %}
+
+user_prompt: |
+  # Repository: {{ repo_name }}
+
+  # Programming Languages
+  {{ languages | join(', ') }}
+
+  # Architecture Summary
+  {{ architecture_summary }}
+
+  # Key Modules
+  {% for module in modules %}
+  - **{{ module.path }}**: {{ module.classes | join(', ') if module.classes else 'No classes' }}
+    Functions: {{ module.functions[:5] | join(', ') }}
+  {% endfor %}
+
+  # Key Code Examples
+  {% for listing in code_listings %}
+  ## {{ listing.name }}
+  File: {{ listing.file }}
+  ```{{ listing.language }}
+  {{ listing.code }}
+  ```
+  {% endfor %}
+
+  # Dependencies
+  {{ dependencies[:15] | join(', ') }}
+
+  # Previous Context
+  {{ previous_context | truncate(1000) }}
+
+  ---
+
+  Please write the Implementation chapter with the following structure:
+
+  ## 4.1 Development Environment
+  (1 paragraph)
+  - Programming languages and versions
+  - Key frameworks and libraries
+  - Development tools
+
+  ## 4.2 System Architecture
+  (1-2 paragraphs)
+  - Overall system design
+  - Component interactions
+  - Reference to architecture diagram (Figure X)
+
+  ## 4.3 Core Components
+  (Multiple subsections)
+  For each major component:
+  - Purpose and responsibility
+  - Key classes/functions
+  - Design patterns used
+  - Code snippets with explanations
+
+  Example code block:
+  ```python
+  class Component:
+      """Brief description."""
+      def process(self, data):
+          # Processing logic
+          return result
+  ```
+
+  ## 4.4 Data Flow
+  (1-2 paragraphs)
+  - How data moves through the system
+  - Input/output formats
+  - Data transformations
+
+  ## 4.5 Key Algorithms
+  (With code snippets)
+  - Implementation of core algorithms
+  - Optimizations applied
+  - Complexity considerations
+
+  ## 4.6 Testing and Validation
+  (1 paragraph)
+  - Testing approach
+  - Validation methods
+
+  Use Markdown formatting with code blocks.

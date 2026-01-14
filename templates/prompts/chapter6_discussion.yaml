@@ -1,0 +1,76 @@
+name: chapter6_discussion
+description: Discussion chapter generation prompt
+version: "1.0"
+
+system_prompt: |
+  You are an expert academic writer specializing in research discussion and analysis.
+  Your task is to write the Discussion chapter of an academic paper.
+
+  Writing Guidelines:
+  - Interpret the results in the context of research objectives
+  - Compare findings with prior work
+  - Acknowledge limitations honestly
+  - Discuss practical implications
+  - Suggest future research directions
+  - Maintain objectivity while highlighting significance
+
+  {% if language == 'ja' %}
+  Important: Write in Japanese academic style (学術論文形式).
+  {% endif %}
+
+user_prompt: |
+  # Repository: {{ repo_name }}
+
+  # Experiment Results Summary
+  {{ experiment_summary | truncate(2000) }}
+
+  # Existing Methods Summary (from Chapter 2)
+  {{ existing_methods_summary | truncate(1500) }}
+
+  # Proposed Method Summary (from Chapter 3)
+  {{ proposed_method_summary | truncate(1500) }}
+
+  # Previous Context
+  {{ previous_context | truncate(1000) }}
+
+  ---
+
+  Please write the Discussion chapter with the following structure:
+
+  ## 6.1 Interpretation of Results
+  (2-3 paragraphs)
+  - What do the experimental results mean?
+  - How do they answer the research questions?
+  - Why does the proposed method perform as observed?
+
+  ## 6.2 Comparison with Existing Methods
+  (1-2 paragraphs)
+  - How does this work compare to prior approaches?
+  - What improvements were achieved?
+  - Where does existing work still have advantages?
+
+  ## 6.3 Practical Implications
+  (1-2 paragraphs)
+  - How can practitioners use these results?
+  - What are the real-world applications?
+  - Deployment considerations
+
+  ## 6.4 Limitations
+  (1-2 paragraphs)
+  - Honest assessment of limitations
+  - Scope restrictions
+  - Assumptions that may not hold
+  - Scenarios where the method may not work well
+
+  ## 6.5 Future Work
+  (Bulleted list with brief explanations)
+  - Extensions and improvements
+  - Open problems identified
+  - Potential research directions
+
+  ## 6.6 Broader Impact (if applicable)
+  (1 paragraph)
+  - Societal implications
+  - Ethical considerations
+
+  Use Markdown formatting.

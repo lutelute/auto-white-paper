@@ -1,0 +1,101 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "auto-white-paper"
+version = "0.1.0"
+description = "Automatic academic paper generation from GitHub repositories"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+authors = [
+    { name = "Your Name", email = "your.email@example.com" }
+]
+keywords = ["paper", "academic", "llm", "github", "automation"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    # GitHub/Git操作
+    "gitpython>=3.1.40",
+
+    # コード解析
+    "tree-sitter>=0.21.0",
+    "tree-sitter-python>=0.21.0",
+    "tree-sitter-javascript>=0.21.0",
+
+    # LLM連携
+    "anthropic>=0.39.0",
+    "httpx>=0.27.0",
+
+    # 図生成
+    "matplotlib>=3.8.0",
+    "graphviz>=0.20.0",
+
+    # 出力生成
+    "pypandoc>=1.12",
+    "Jinja2>=3.1.0",
+
+    # ユーティリティ
+    "pydantic>=2.5.0",
+    "pydantic-settings>=2.1.0",
+    "pyyaml>=6.0.1",
+    "rich>=13.7.0",
+    "typer>=0.9.0",
+
+    # 非同期処理
+    "aiofiles>=23.2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.1.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.7.0",
+    "pre-commit>=3.6.0",
+]
+
+[project.scripts]
+awp = "awp.cli:app"
+
+[project.urls]
+Homepage = "https://github.com/yourusername/auto-white-paper"
+Repository = "https://github.com/yourusername/auto-white-paper"
+
+[tool.hatch.build.targets.wheel]
+packages = ["awp"]
+
+[tool.hatch.build.targets.wheel.sources]
+"src" = "awp"
+
+# テンプレートファイルをパッケージに含める
+[tool.hatch.build.targets.wheel.force-include]
+"templates" = "awp/templates"
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "W", "I", "N", "UP", "B", "C4"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unused_ignores = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

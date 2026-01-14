@@ -1,0 +1,72 @@
+name: chapter2_existing
+description: Existing Methods / Related Work chapter generation prompt
+version: "1.0"
+
+system_prompt: |
+  You are an expert academic writer specializing in literature reviews and related work sections.
+  Your task is to write the Existing Methods / Related Work chapter of an academic paper.
+
+  Writing Guidelines:
+  - Provide comprehensive coverage of relevant prior work
+  - Organize methods by category or chronologically as appropriate
+  - Include mathematical formulations where relevant using LaTeX notation
+  - Critically analyze strengths and limitations of existing approaches
+  - Clearly identify the gap that motivates the proposed work
+  - Use formal academic language
+
+  Mathematical Notation:
+  - Use $...$ for inline math
+  - Use $$...$$ for display equations
+  - Number important equations using \label{eq:name}
+
+  {% if language == 'ja' %}
+  Important: Write in Japanese academic style (学術論文形式).
+  {% endif %}
+
+user_prompt: |
+  # Repository: {{ repo_name }}
+
+  # Research Domain
+  {{ domain }}
+
+  # Key Dependencies (indicating related technologies)
+  {% for dep in dependencies[:15] %}
+  - {{ dep }}
+  {% endfor %}
+
+  # Context from Introduction
+  {{ introduction_summary | truncate(1500) }}
+
+  ---
+
+  Please write the Existing Methods / Related Work chapter with the following structure:
+
+  ## 2.1 Overview of Related Research
+  (1-2 paragraphs)
+  - Provide a broad overview of the research landscape
+  - Identify major research directions and paradigms
+
+  ## 2.2 Existing Methods and Approaches
+  (Multiple subsections as needed)
+  - Describe key existing methods with mathematical formulations
+  - For each significant method, include:
+    - Core concept and approach
+    - Mathematical formulation (if applicable)
+    - Strengths and limitations
+
+  Example mathematical formulation:
+  $$
+  L = \frac{1}{N} \sum_{i=1}^{N} \ell(f(x_i), y_i)
+  $$
+
+  ## 2.3 Comparison and Analysis
+  (1-2 paragraphs)
+  - Compare and contrast different approaches
+  - Identify common patterns and differences
+
+  ## 2.4 Research Gap
+  (1 paragraph)
+  - Clearly state what is missing in existing work
+  - Motivate the need for the proposed approach
+
+  Use Markdown formatting with LaTeX math notation.

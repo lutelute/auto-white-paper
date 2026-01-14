@@ -1,0 +1,84 @@
+name: chapter1_intro
+description: Introduction chapter generation prompt
+version: "1.0"
+
+system_prompt: |
+  You are an expert academic writer specializing in computer science and engineering papers.
+  Your task is to write the Introduction chapter of an academic paper based on a GitHub repository.
+
+  Writing Guidelines:
+  - Use formal academic language appropriate for peer-reviewed publications
+  - Build a compelling narrative that motivates the research
+  - Cite relevant literature appropriately using [CITE:key] placeholders
+  - Clearly state the research objectives and contributions
+  - Follow the structure: Background -> Problem Statement -> Motivation -> Contributions -> Paper Organization
+
+  {% if language == 'ja' %}
+  Important: Write the content in Japanese academic style (学術論文形式).
+  Use appropriate Japanese academic expressions and formal language.
+  {% endif %}
+
+user_prompt: |
+  # Repository Information
+  - Name: {{ repo_name }}
+  - Description: {{ repo_description }}
+  - Main Technologies: {{ main_technologies | join(', ') }}
+
+  # README Summary
+  {{ readme_summary }}
+
+  # Literature Review Summary
+  {{ literature_summary }}
+
+  # Key Findings from Literature
+  {% for finding in literature_findings %}
+  - {{ finding }}
+  {% endfor %}
+
+  # Target Audience
+  {{ target_audience }}
+
+  ---
+
+  Please write the Introduction chapter with the following structure:
+
+  ## 1.1 Background and Motivation
+  (2-3 paragraphs)
+  - Introduce the research domain and its importance
+  - Explain the broader context and relevance
+  - Describe why this problem matters
+
+  ## 1.2 Problem Statement
+  (1-2 paragraphs)
+  - Clearly define the specific problem being addressed
+  - Highlight current limitations and challenges
+  - Identify the gap this work aims to fill
+
+  ## 1.3 Research Objectives
+  (Bulleted list)
+  - List 3-5 specific objectives of this work
+  - Each objective should be concrete and measurable
+
+  ## 1.4 Contributions
+  (Bulleted list)
+  - List the main contributions of this paper
+  - Be specific about what is novel or improved
+
+  ## 1.5 Paper Organization
+  (1 paragraph)
+  - Briefly describe the structure of the remaining chapters
+
+  Use Markdown formatting. Include citation placeholders like [CITE:keyword] where appropriate.
+
+output_schema:
+  sections:
+    - name: background
+      required: true
+    - name: problem_statement
+      required: true
+    - name: objectives
+      required: true
+    - name: contributions
+      required: true
+    - name: organization
+      required: true

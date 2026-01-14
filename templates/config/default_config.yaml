@@ -1,0 +1,90 @@
+# Auto White Paper - Default Configuration Template
+# Copy this file to awp.config.yaml and customize
+
+version: "1.0"
+
+# Project Information
+project:
+  name: "My Research Paper"
+  output_dir: "./output"
+
+# Source Repository
+repository:
+  url: ""  # GitHub repository URL (required)
+  branch: "main"
+  clone_dir: "./.awp/repo"
+
+# Paper Settings
+paper:
+  template: "ieee"  # Options: ieee, ieej, generic
+  language: "en"    # Options: en, ja
+  title: "Paper Title"
+
+  # Authors (optional)
+  authors:
+    - name: "Author Name"
+      affiliation: "University"
+      email: "author@example.com"
+
+  # Chapter configuration
+  chapters:
+    include: [1, 2, 3, 4, 5, 6, 7]  # or specify subset
+
+    # Chapter-specific settings (optional)
+    chapter1:
+      research_keywords:
+        - "keyword1"
+        - "keyword2"
+
+    chapter4:
+      include_code_listings: true
+      max_code_lines: 50
+
+    chapter5:
+      use_existing_results: true
+
+# LLM Configuration
+llm:
+  provider: "claude"
+  model: "claude-sonnet-4-20250514"
+  max_tokens: 4096
+  temperature: 0.7
+
+  # Literature research provider
+  literature_provider: "genspark"
+
+# Output Settings
+output:
+  formats:
+    - markdown
+    - latex
+    - pdf
+
+  latex:
+    compiler: "pdflatex"  # Options: pdflatex, xelatex, lualatex, platex
+
+  figures:
+    format: "png"  # Options: png, svg, pdf
+    dpi: 300
+
+# Human Review Points
+review:
+  enabled: true
+  checkpoints:
+    - after_chapter: 1
+      type: "approve"
+    - after_chapter: 3
+      type: "approve"
+    - after_chapter: 5
+      type: "full_review"
+
+# Caching
+cache:
+  enabled: true
+  dir: "./.awp/cache"
+  ttl: 86400  # seconds (24 hours)
+
+# Logging
+logging:
+  level: "info"  # Options: debug, info, warning, error
+  file: "./.awp/logs/awp.log"

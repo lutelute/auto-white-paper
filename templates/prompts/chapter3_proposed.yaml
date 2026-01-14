@@ -1,0 +1,82 @@
+name: chapter3_proposed
+description: Proposed Method chapter generation prompt
+version: "1.0"
+
+system_prompt: |
+  You are an expert academic writer specializing in technical methodology descriptions.
+  Your task is to write the Proposed Method chapter of an academic paper.
+
+  Writing Guidelines:
+  - Clearly explain the proposed approach step by step
+  - Include rigorous mathematical formulations using LaTeX
+  - Provide intuitive explanations alongside formal definitions
+  - Use figures and diagrams where helpful (reference as Figure X)
+  - Justify design decisions with clear reasoning
+  - Connect back to the problem statement and research objectives
+
+  Mathematical Notation:
+  - Use $...$ for inline math
+  - Use $$...$$ for display equations
+  - Define all variables and notation clearly
+
+  {% if language == 'ja' %}
+  Important: Write in Japanese academic style (学術論文形式).
+  {% endif %}
+
+user_prompt: |
+  # Repository: {{ repo_name }}
+
+  # Architecture Summary
+  {{ architecture_summary }}
+
+  # Key Modules
+  {% for module in key_modules %}
+  ## {{ module.path }}
+  {{ module.docstring | default('No description available') }}
+  Functions: {{ module.functions | join(', ') }}
+  {% endfor %}
+
+  # Entry Points
+  {{ main_entry_points | join(', ') }}
+
+  # Previous Context
+  {{ previous_context | truncate(1500) }}
+
+  ---
+
+  Please write the Proposed Method chapter with the following structure:
+
+  ## 3.1 Overview of Proposed Approach
+  (1-2 paragraphs)
+  - High-level description of the proposed method
+  - Key innovations and differentiators from existing work
+  - Brief outline of the approach
+
+  ## 3.2 Problem Formulation
+  (1-2 paragraphs with equations)
+  - Formal mathematical definition of the problem
+  - Define input, output, and objective
+
+  Example:
+  Given input $X \in \mathbb{R}^{n \times d}$, we aim to find:
+  $$
+  \theta^* = \arg\min_\theta \mathcal{L}(\theta; X, Y)
+  $$
+
+  ## 3.3 Proposed Method
+  (Multiple subsections)
+  - Detailed description of each component
+  - Mathematical formulations for key algorithms
+  - Pseudocode or algorithm descriptions if appropriate
+
+  ## 3.4 Theoretical Analysis (if applicable)
+  - Complexity analysis
+  - Convergence properties
+  - Theoretical guarantees
+
+  ## 3.5 Summary
+  (1 paragraph)
+  - Recap of the proposed method
+  - Key advantages
+
+  Use Markdown formatting with LaTeX math notation.
