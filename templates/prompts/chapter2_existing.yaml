@@ -14,6 +14,16 @@ system_prompt: |
   - Clearly identify the gap that motivates the proposed work
   - Use formal academic language
 
+  {% if paper_type == 'journal' %}
+  LENGTH REQUIREMENT: This is a JOURNAL paper (6-12 pages total).
+  Write approximately 600-1200 words for this chapter.
+  Provide comprehensive coverage with detailed mathematical formulations.
+  {% else %}
+  LENGTH REQUIREMENT: This is a CONFERENCE paper (2-6 pages total).
+  Write approximately 300-600 words for this chapter.
+  Focus on the most relevant 3-5 existing methods only.
+  {% endif %}
+
   Mathematical Notation:
   - Use $...$ for inline math
   - Use $$...$$ for display equations

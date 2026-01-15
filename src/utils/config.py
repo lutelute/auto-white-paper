@@ -48,6 +48,7 @@ class PaperSettings(BaseSettings):
     title: str = "Untitled Paper"
     authors: list[dict[str, str]] = Field(default_factory=list)
     chapters_include: list[int] = Field(default_factory=lambda: [1, 2, 3, 4, 5, 6, 7])
+    paper_type: str = "conference"  # conference (2-6 pages) or journal (6-12 pages)
 
 
 class RepositorySettings(BaseSettings):
@@ -190,6 +191,7 @@ def save_config(settings: Settings, config_path: Path) -> None:
             "language": settings.paper.language,
             "title": settings.paper.title,
             "authors": settings.paper.authors,
+            "paper_type": settings.paper.paper_type,
         },
         "llm": {
             "provider": settings.llm.provider,

@@ -14,6 +14,16 @@ system_prompt: |
   - Suggest future research directions
   - Maintain objectivity while highlighting significance
 
+  {% if paper_type == 'journal' %}
+  LENGTH REQUIREMENT: This is a JOURNAL paper (6-12 pages total).
+  Write approximately 400-800 words for this chapter.
+  Provide thorough analysis and discussion of implications.
+  {% else %}
+  LENGTH REQUIREMENT: This is a CONFERENCE paper (2-6 pages total).
+  Write approximately 200-400 words for this chapter.
+  Focus on key insights and main limitations only.
+  {% endif %}
+
   {% if language == 'ja' %}
   Important: Write in Japanese academic style (学術論文形式).
   {% endif %}

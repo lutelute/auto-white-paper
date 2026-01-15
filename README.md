@@ -6,11 +6,38 @@ GitHubリポジトリから学術論文を自動生成するCLIツール
 
 Auto White Paper (AWP) は、GitHubプロジェクトのURLを入力として、7章構成の学術論文を自動生成します。Claude APIを使用してコード解析と論文執筆を行います。
 
+## 🚀 最短で論文を生成（コピペ用）
+
+**前提**: `pip install auto-white-paper` でインストール済み、`ANTHROPIC_API_KEY` を環境変数に設定済み
+
+```bash
+# 学会論文（2-6ページ）を生成
+mkdir my-paper && cd my-paper && \
+awp init --github https://github.com/USER/REPO --language ja && \
+sed -i '' 's/paper_type: conference/paper_type: conference/' awp.config.yaml && \
+awp generate && awp export --format pdf
+```
+
+```bash
+# ジャーナル論文（6-12ページ）を生成
+mkdir my-paper && cd my-paper && \
+awp init --github https://github.com/USER/REPO --language ja && \
+sed -i '' 's/paper_type: conference/paper_type: journal/' awp.config.yaml && \
+awp generate && awp export --format pdf
+```
+
+**最小限の手順**:
+1. `mkdir my-paper && cd my-paper`
+2. `echo "ANTHROPIC_API_KEY=sk-xxx" > .env`
+3. `awp init --github https://github.com/USER/REPO`
+4. `awp generate`
+
 ## 特徴
 
 - **グローバルCLIツール**: 一度インストールすれば、どのディレクトリからでも使用可能
 - **自動リポジトリ解析**: GitHubリポジトリをクローンし、コード構造・依存関係・アーキテクチャを分析
 - **7章構成の論文生成**: Introduction から Conclusion まで、学術論文の標準構成に準拠
+- **論文形式の選択**: Conference（2-6ページ）/ Journal（6-12ページ）
 - **文献調査オプション**: 手動入力、Claude生成、またはGenspark API（利用可能な場合）
 - **複数出力形式**: Markdown, LaTeX, PDF に対応
 - **多言語対応**: 英語・日本語に対応
@@ -26,6 +53,19 @@ Auto White Paper (AWP) は、GitHubプロジェクトのURLを入力として、
 | 5 | Experiments | 条件設定、結果解析 |
 | 6 | Discussion | 限界、実機検証の必要性 |
 | 7 | Conclusion | まとめ |
+
+## 論文形式
+
+| 形式 | ページ数 | 用途 | 分量目安 |
+|------|----------|------|---------|
+| `conference` | 2-6ページ | 学会発表、国際会議 | 1,500-4,000語 |
+| `journal` | 6-12ページ | ジャーナル投稿 | 4,000-8,000語 |
+
+`awp.config.yaml` の `paper.paper_type` で設定:
+```yaml
+paper:
+  paper_type: "conference"  # または "journal"
+```
 
 ## インストール
 
@@ -148,6 +188,7 @@ paper:
   template: "ieee"        # ieee, ieej, generic
   language: "ja"          # en, ja
   title: "論文タイトル"
+  paper_type: "conference"  # conference (2-6 pages) or journal (6-12 pages)
 
 llm:
   provider: "claude"

@@ -14,6 +14,16 @@ system_prompt: |
   - Analyze results objectively
   - Compare with baselines and existing methods
 
+  {% if paper_type == 'journal' %}
+  LENGTH REQUIREMENT: This is a JOURNAL paper (6-12 pages total).
+  Write approximately 600-1200 words for this chapter.
+  Include comprehensive experimental details and multiple result tables.
+  {% else %}
+  LENGTH REQUIREMENT: This is a CONFERENCE paper (2-6 pages total).
+  Write approximately 300-600 words for this chapter.
+  Focus on main results with 1-2 key tables only.
+  {% endif %}
+
   Table Format:
   Use markdown tables for results:
   | Method | Metric 1 | Metric 2 |

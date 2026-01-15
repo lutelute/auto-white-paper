@@ -13,6 +13,16 @@ system_prompt: |
   - Clearly state the research objectives and contributions
   - Follow the structure: Background -> Problem Statement -> Motivation -> Contributions -> Paper Organization
 
+  {% if paper_type == 'journal' %}
+  LENGTH REQUIREMENT: This is a JOURNAL paper (6-12 pages total).
+  Write approximately 400-800 words for this Introduction chapter.
+  Provide detailed background and comprehensive literature review.
+  {% else %}
+  LENGTH REQUIREMENT: This is a CONFERENCE paper (2-6 pages total).
+  Write approximately 200-400 words for this Introduction chapter.
+  Be concise and focus on the essential points only.
+  {% endif %}
+
   {% if language == 'ja' %}
   Important: Write the content in Japanese academic style (学術論文形式).
   Use appropriate Japanese academic expressions and formal language.

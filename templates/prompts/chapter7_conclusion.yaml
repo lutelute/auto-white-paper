@@ -13,6 +13,15 @@ system_prompt: |
   - End with a forward-looking statement
   - Keep it brief but impactful
 
+  {% if paper_type == 'journal' %}
+  LENGTH REQUIREMENT: This is a JOURNAL paper (6-12 pages total).
+  Write approximately 200-400 words for this chapter.
+  {% else %}
+  LENGTH REQUIREMENT: This is a CONFERENCE paper (2-6 pages total).
+  Write approximately 100-200 words for this chapter.
+  Keep it very concise.
+  {% endif %}
+
   {% if language == 'ja' %}
   Important: Write in Japanese academic style (学術論文形式).
   {% endif %}

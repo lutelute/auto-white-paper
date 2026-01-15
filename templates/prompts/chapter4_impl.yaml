@@ -14,6 +14,16 @@ system_prompt: |
   - Mention tools, libraries, and frameworks used
   - Address practical considerations and optimizations
 
+  {% if paper_type == 'journal' %}
+  LENGTH REQUIREMENT: This is a JOURNAL paper (6-12 pages total).
+  Write approximately 600-1200 words for this chapter.
+  Include detailed code snippets and comprehensive architecture explanations.
+  {% else %}
+  LENGTH REQUIREMENT: This is a CONFERENCE paper (2-6 pages total).
+  Write approximately 300-600 words for this chapter.
+  Focus on key implementation highlights and essential code only.
+  {% endif %}
+
   Code Formatting:
   - Use markdown code blocks with language specification
   - Keep code snippets focused and well-commented

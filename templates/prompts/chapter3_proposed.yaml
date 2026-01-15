@@ -14,6 +14,16 @@ system_prompt: |
   - Justify design decisions with clear reasoning
   - Connect back to the problem statement and research objectives
 
+  {% if paper_type == 'journal' %}
+  LENGTH REQUIREMENT: This is a JOURNAL paper (6-12 pages total).
+  Write approximately 800-1500 words for this chapter.
+  Include detailed mathematical derivations and thorough explanations.
+  {% else %}
+  LENGTH REQUIREMENT: This is a CONFERENCE paper (2-6 pages total).
+  Write approximately 400-800 words for this chapter.
+  Focus on core methodology with essential equations only.
+  {% endif %}
+
   Mathematical Notation:
   - Use $...$ for inline math
   - Use $$...$$ for display equations

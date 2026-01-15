@@ -140,6 +140,47 @@ class BaseChapterAgent(ABC):
 
         return sections
 
+    def _get_length_guidelines(self, paper_type: str) -> dict[str, Any]:
+        """Get word count guidelines based on paper type.
+
+        Args:
+            paper_type: 'conference' (2-6 pages) or 'journal' (6-12 pages)
+
+        Returns:
+            Guidelines dictionary with word counts per chapter
+        """
+        # Approximate words per page: 600-800 for academic papers
+        if paper_type == "journal":
+            # Journal: 6-12 pages (4000-8000 words total)
+            return {
+                "total_words": (4000, 8000),
+                "chapter_words": {
+                    1: (400, 800),    # Introduction
+                    2: (600, 1200),   # Existing Methods
+                    3: (800, 1500),   # Proposed Method
+                    4: (600, 1200),   # Implementation
+                    5: (600, 1200),   # Experiments
+                    6: (400, 800),    # Discussion
+                    7: (200, 400),    # Conclusion
+                },
+                "description": "Journal paper (6-12 pages, detailed analysis)",
+            }
+        else:
+            # Conference: 2-6 pages (1500-4000 words total)
+            return {
+                "total_words": (1500, 4000),
+                "chapter_words": {
+                    1: (200, 400),    # Introduction
+                    2: (300, 600),    # Existing Methods
+                    3: (400, 800),    # Proposed Method
+                    4: (300, 600),    # Implementation
+                    5: (300, 600),    # Experiments
+                    6: (200, 400),    # Discussion
+                    7: (100, 200),    # Conclusion
+                },
+                "description": "Conference paper (2-6 pages, concise)",
+            }
+
     def _get_previous_context(
         self,
         previous_chapters: list[ChapterContent],
